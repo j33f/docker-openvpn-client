@@ -19,7 +19,9 @@ replace the ```-td``` option with ```-ti``` if you want to test if everything is
 ## Usage with docker-compose
 
 The aim for this container is to provide an OpenVPN connexion for other containers.
-Using a docker-compose file will simplify this process. Here is an example:
+Using a docker-compose file will simplify this process. 
+For more details, see the [docker-compose example](./docker-compose%20example) folder
+Here is an example:
 
 ```
 version: "2"
@@ -30,17 +32,28 @@ services:
     container_name: vpn
     privileged: true
     restart: always
-    cap_add: 
+    cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    volumes: 
+    volumes:
       - /etc/localtime:/etc/localtime:ro
       - /path/to/an/ovnp/file.ovpn:/conf.ovpn
     environment:
       - USERNAME=your-username-here
       - PASSWORD=your-password-here
+
+  checkip:                         # this is the VPN dependant container
+    image: alpine:latest
+    container_name: checkip         
+    volumes:
+      - ./checkip.sh:/checkip.sh   # this is the script that will be launched
+    depends_on:
+      - vpn                        # /!\ this is needed so that the vpn container launch first
+    network_mode: container:vpn    # /!\ imporant: this will make this container to use the vpn for internet traffic
+    command: chmod a+x /checkip.sh
+    entrypoint: /checkip.sh
 ```
