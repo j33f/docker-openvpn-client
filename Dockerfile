@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER Jeff <jeff@modulaweb.fr>
+LABEL maintainer Jeff <jeff@modulaweb.fr>
 
 ADD start.sh /start.sh
 

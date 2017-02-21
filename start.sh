@@ -33,3 +33,4 @@ fi
 # if we are here, it is because something wen terribly wrong...
 echo "Failed..."
 echo "Usage: docker run -ti -e \"USERNAME=your-username-here\" -e \"PASSWORD=your-password-here\" -v /path/to/an/ovnp/file.ovpn:/conf.ovpn --cap-add=NET_ADMIN --device /dev/net/tun --name vpn j33f/openvpn-client"
+exit 1
