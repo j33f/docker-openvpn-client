@@ -1,0 +1,33 @@
+version: "2"
+
+services:
+  vpn:
+    image: j33f/openvpn-client
+    container_name: vpn
+    privileged: true
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /path/to/an/ovnp/file.ovpn:/conf.ovpn
+    environment:
+      - USERNAME=your-username-here
+      - PASSWORD=your-password-here
+
+  checkip:
+    image: alpine:latest
+    container_name: checkip
+    volumes:
+      - ./checkip.sh:/checkip.sh
+    depends_on:
+      - vpn
+    network_mode: container:vpn
+    command: chmod a+x /checkip.sh
+    entrypoint: /checkip.sh
+
