@@ -17,8 +17,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /path/to/an/ovnp/file.ovpn:/conf.ovpn
     environment:
-      - USERNAME=your-username-here
-      - PASSWORD=your-password-here
+      - OVPNUSERNAME=your-username-here
+      - OVPNPASSWORD=your-password-here
 
   checkip:
     image: alpine:latest

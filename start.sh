@@ -4,31 +4,30 @@ conf="/vpn.conf" auth="/vpn.auth" origconf="/conf.ovpn"
 
 if [ -f "$origconf" ];
 then
-    if [ -z ${USERNAME+x} ];
+    if [ -z ${OVPNUSERNAME+x} ];
     then
         echo "No User name set..."
         exit 1
-    else
-        if [ -z ${PASSWORD+x} ];
-        then
-            echo "No password set..."
-            exit 1
-        else
-            cat $origconf > $conf
-            echo "auth-user-pass $auth" >> $conf
-            echo "$USERNAME" > $auth
-            echo "$PASSWORD" >> $auth
-            chmod 0600 $auth
-
-            # Launch Openvpn
-
-            openvpn --config $conf
-        fi
+    fi
+    if [ -z ${PASSWORD+x} ];
+    then
+        echo "No password set..."
+        exit 1
     fi
 else
-   echo "Please provide a configuration file"
-   exit 0
+    echo "Please provide a configuration file"
+    exit 1
 fi
+
+cat $origconf > $conf
+echo "auth-user-pass $auth" >> $conf
+echo "$USERNAME" > $auth
+echo "$PASSWORD" >> $auth
+chmod 0600 $auth
+
+# Launch Openvpn
+
+openvpn --config $conf
 
 # if we are here, it is because something wen terribly wrong...
 echo "Failed..."

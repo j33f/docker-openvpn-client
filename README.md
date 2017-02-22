@@ -11,7 +11,7 @@ You only need to specify:
 /!\ this is a minimal configuration line. See the docker-compose usage
 
 ```
-docker run -td -e "USERNAME=your-username-here" -e "PASSWORD=your-password-here" -v /path/to/an/ovnp/file.ovpn:/conf.ovpn --cap-add=NET_ADMIN --device /dev/net/tun --name vpn j33f/openvpn-client
+docker run -td -e "OVPNUSERNAME=your-username-here" -e "OVPNPASSWORD=your-password-here" -v /path/to/an/ovnp/file.ovpn:/conf.ovpn --cap-add=NET_ADMIN --device /dev/net/tun --name vpn j33f/openvpn-client
 ```
 
 replace the ```-td``` option with ```-ti``` if you want to test if everything is good.
@@ -43,8 +43,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /path/to/an/ovnp/file.ovpn:/conf.ovpn
     environment:
-      - USERNAME=your-username-here
-      - PASSWORD=your-password-here
+      - OVPNUSERNAME=your-username-here
+      - OVPNPASSWORD=your-password-here
 
   checkip:                         # this is the VPN dependant container
     image: alpine:latest
