@@ -2,7 +2,7 @@
 
 ## Usage 
 
-To run in background simply use the following line below.
+To run in background simply use the following oneliner below.
 You only need to specify:
 - your user name
 - your password
@@ -18,7 +18,7 @@ replace the ```-td``` option with ```-ti``` if you want to test if everything is
 
 ## Usage with docker-compose
 
-The aim for this container is to provide an OpenVPN connexion for other containers.
+This container aims to provide an OpenVPN connexion for other containers.
 Using a docker-compose file will simplify this process. 
 For more details, see the [docker-compose example](./docker-compose%20example) folder
 Here is an example:
